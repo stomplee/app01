@@ -1,24 +1,16 @@
 #!/bin/bash
 apt-get update
-apt-get install apache2 php libapache2-mod-php php-mcrypt php-mysql wget tar -y 
+apt-get install apache2 php libapache2-mod-php php-mcrypt php-mysql wget tar -y
 debconf-set-selections <<< 'mysql-server mysql-server/root_password password password'
 debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password password'
-apt-get install mysql-server -y 
-wget http://sourceforge.net/projects/vtigercrm/files/vtiger%20CRM%206.5.0/Core%20Product/vtigercrm6.5.0.tar.gz
-tar -xvzf vtigercrm6.5.0.tar.gz
-cp -r vtigercrm/* /var/www/html/
-rm -f vtigercrm6.5.0.tar.gz
-rm -rf vtigercrm
+apt-get install mysql-server -y
 a2enmod ssl
 mkdir -p /etc/apache2/ssl
-mkdir -p /git/app01
-git clone https://github.com/stomplee/app01 /git/app01/
-chmod +X /git/app01/createdb.sh
-/git/app01/createdb.sh test user password
-cp /git/app01/apache.key /etc/apache2/ssl/
-cp /git/app01/apache.crt /etc/apache2/ssl/
-cp /git/app01/default-ssl.conf /etc/apache2/sites-available/default-ssl.conf
-cp /git/app01/dir.conf /etc/apache2/mods-enabled/dir.conf
+sh ~/app01/createdb.sh testdb user password
+cp ~/app01/apache.key /etc/apache2/ssl/
+cp ~/app01/apache.crt /etc/apache2/ssl/
+cp ~/app01/default-ssl.conf /etc/apache2/sites-available/default-ssl.conf
+cp ~/app01/dir.conf /etc/apache2/mods-enabled/dir.conf
 chown -R www-data:www-data /etc/apache2
 chown -R www-data:www-data /var/www/html
 a2ensite default-ssl.conf
