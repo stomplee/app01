@@ -10,9 +10,9 @@ cp -r vtigercrm/* /var/www/html/
 rm -f vtigercrm6.5.0.tar.gz
 rm -rf vtigercrm
 a2enmod ssl
-mkdir /etc/apache2/ssl
-mkdir /git
-git clone https://github.com/stomplee/app01 /git/app01
+mkdir -p /etc/apache2/ssl
+mkdir -p /git/app01
+git clone https://github.com/stomplee/app01 /git/app01/
 chmod +X /git/app01/createdb.sh
 /git/app01/createdb.sh test user password
 cp /git/app01/apache.key /etc/apache2/ssl/
