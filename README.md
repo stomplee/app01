@@ -25,4 +25,6 @@ a2ensite default-ssl.conf
 service apache2 restart
 ```
 
-3. Create another EC2 instance using the same AMI as in step 2 and assign it to the second AZ and enter in the same bash script in the Advanced section upon launch
+3. Create another EC2 instance using the same AMI as in step 2 and assign it to the second AZ and enter in the same bash script in the Advanced section upon launcha
+
+Tested this and it works.  It does take up to 5 minutes after the instance has been provisioned for the post-deployment script to run and allow https access
