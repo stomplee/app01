@@ -6,7 +6,7 @@
 
 1. Create a VPC in the **us-east** region, call it **bluecoveapp01vpc**, set the CIDR block to **10.0.0.0/16**.
 2. Create a subnet called **bluecoveapp01subnetA**, assign it to **bluecoveapp01vpc**, set the availability zone to **us-east-1a** and set the IPv4 CIDR block to **10.0.1.0/24**.  Select the new subnet and under subnet actions select modify auto-assign ip settings and enable auto-assign public IP.
-3. Create a subnet called **bluecoveapp01subnetB**, assign it to **bluecoveapp01vpc**, set the availability zone to **us-east-1b** and set the IPv4 CIDR block to **110.0.2.0/24**1.  Select the new subnet and under subnet actions select modify auto-assign ip settings and enable auto-assign public IP.
+3. Create a subnet called **bluecoveapp01subnetB**, assign it to **bluecoveapp01vpc**, set the availability zone to **us-east-1b** and set the IPv4 CIDR block to **10.0.2.0/24**1.  Select the new subnet and under subnet actions select modify auto-assign ip settings and enable auto-assign public IP.
 4. Create an internet gateway called **bluecoveapp01igw** and attach it to **bluecoveapp01vpc"**
 5. Create a route table called **bluecoveapp01route** and associate it with the **bluecoveapp01vpc**, associate the subnets **bluecoveapp01subnetA** and **bluecoveapp01subnetB** to this new route table and add a new route to it of 0.0.0.0/0 target **bluecoveapp01igw**
 6. Create a security group called **bluecoveapp01sg** , assign it to **bluecoveapp01vpc** and add inbound rules for 22 from MyIP, HTTP from anywhere and HTTPS from anywhere
