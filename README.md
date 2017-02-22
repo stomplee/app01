@@ -26,7 +26,7 @@ sh /git/install.sh
 13. For the SSL certificate section choose to upload a new certificate and upload a new SSL cert with the following settings and naming the certficate **bluecoveapp01cert**:
 
 # Private Key
-'''
+```
 -----BEGIN PRIVATE KEY-----
 MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDUHHN4WLZKjZWZ
 llbcSbHngrl6SFzVUub0lqNV+PV93c0vpjj+jdBUCfLuoVI+75D4apoHn+Adwz4x
@@ -55,10 +55,10 @@ bnTupmCZb8Z8wdtBb75aeOzyJSkP2mr6uM0nSUGvWseYpgHUyjA0s+3ASr/gejpE
 0f/fwAS5uUBNmLQXYu0EnGez3rVgC64oibzshAjvD+F8qW9QNbeETr5gMd6BvHWX
 bwTzqzOWGQnQGNcRfgtnNDs=
 -----END PRIVATE KEY-----
-'''
+```
 
 # Public Key Certificate
-'''
+```
 -----BEGIN CERTIFICATE-----
 MIIDXTCCAkWgAwIBAgIJAO9bFhFYC8ZtMA0GCSqGSIb3DQEBCwUAMEUxCzAJBgNV
 BAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBX
@@ -80,7 +80,7 @@ QisWTRbDyhncZyu1JnD3FH+y3XQvcmSZy2RvaJmABn3t4ZqJxypR7zF911hjf3zZ
 JNsJtlKqGyDplvkEB8U++5zPEG03LMX3G6iwwgEjFmqx85H16zAd6S1vJ5MBw6Ku
 oQ==
 -----END CERTIFICATE-----
-'''
+```
 
 14. Set the health check to use **HTTPS** as a ping protocol with a ping port of **443** and use the default ping path.  Set the response timeout to **5s**, the interval to **10s** and lower the healthy threshold to **2**
 15. Associate the ELB with both EC2 instances created previously, tag the ELB as ***Name=bluecoveapp01elb***
