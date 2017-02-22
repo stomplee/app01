@@ -1,8 +1,8 @@
 ## Technical Test Instruction Guide
 
-This guide assumes you have provisioned an IAM user with the necessary permissions to create the resources below and have already configured an SSH key pair.
+*This guide assumes you have provisioned an IAM user with the necessary permissions to create the resources below and have already configured an SSH key pair.*
 
-As it currently stands this configuration is woefully insecure and uses some very bad practices such as hardcoded passwords and storing private keys inside of github, but it tested to work and meets the requirements of the test as was given to me.
+*As it currently stands this configuration is woefully insecure and uses some very bad practices such as hardcoded passwords and storing private keys inside of github, but it tested to work and meets the requirements of the test as was given to me.*
 
 1. Create a VPC in the **us-east** region, call it **bluecoveapp01vpc**, set the CIDR block to **10.0.0.0/16**.
 2. Create a subnet called **bluecoveapp01subnetA**, assign it to **bluecoveapp01vpc**, set the availability zone to **us-east-1a** and set the IPv4 CIDR block to **10.0.1.0/24**.  Select the new subnet and under subnet actions select modify auto-assign ip settings and enable auto-assign public IP.
