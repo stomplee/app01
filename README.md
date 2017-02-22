@@ -25,6 +25,7 @@
 12. Associate the new load balancer with **bluecoveapp01subnetA** and **bluecoveapp01subnetB**
 12. Choose the **bluecoveapp01sg** security group
 13. For the SSL certificate section choose to upload a new certificate and upload a new SSL cert with the following settings and naming the certficate **bluecoveapp01cert**:
+
   ```
   -----BEGIN PRIVATE KEY-----
   MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDUHHN4WLZKjZWZ
@@ -55,6 +56,7 @@
   bwTzqzOWGQnQGNcRfgtnNDs=
   -----END PRIVATE KEY-----
   ```
+
   ```
   -----BEGIN CERTIFICATE-----
   MIIDXTCCAkWgAwIBAgIJAO9bFhFYC8ZtMA0GCSqGSIb3DQEBCwUAMEUxCzAJBgNV
