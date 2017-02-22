@@ -6,7 +6,7 @@ echo "mysql-server mysql-server/root_password_again password password" | debconf
 apt-get install mysql-server -y
 a2enmod ssl
 mkdir -p /etc/apache2/ssl
-mkdir /git/
+mkdir -p /git/
 git clone https://github.com/stomplee/app01 /git
 sh /git/createdb.sh testdb user password
 cp /git/apache.key /etc/apache2/ssl/
