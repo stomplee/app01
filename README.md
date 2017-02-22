@@ -7,8 +7,8 @@
 #!/bin/bash
 apt-get update
 apt-get install apache2 php libapache2-mod-php php-mcrypt php-mysql git -y
-debconf-set-selections <<< 'mysql-server mysql-server/root_password password password'
-debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password password'
+echo "mysql-server mysql-server/root_password password password" | debconf-set-selections
+echo "mysql-server mysql-server/root_password_again password password" | debconf-set-selections
 apt-get install mysql-server -y
 a2enmod ssl
 mkdir -p /etc/apache2/ssl
@@ -28,7 +28,6 @@ chmod 644 /var/www/html/test.php
 a2ensite default-ssl.conf
 service apache2 restart
 ```
-
 3. Create another EC2 instance using the same AMI as in step 2 and assign it to the second AZ and enter in the same bash script in the Advanced section upon launcha
 
 Tested this and it works.  It does take up to 5 minutes after the instance has been provisioned for the post-deployment script to run and allow https access
