@@ -1,8 +1,8 @@
 #!/bin/bash
 apt-get update
 apt-get install apache2 php libapache2-mod-php php-mcrypt php-mysql git -y
-debconf-set-selections <<< 'mysql-server mysql-server/root_password password password'
-debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password password'
+echo "mysql-server mysql-server/root_password password password" | debconf-set-selections
+echo "mysql-server mysql-server/root_password_again password password" | debconf-set-selections
 apt-get install mysql-server -y
 a2enmod ssl
 mkdir -p /etc/apache2/ssl
