@@ -13,7 +13,11 @@ cp /git/apache.key /etc/apache2/ssl/
 cp /git/apache.crt /etc/apache2/ssl/
 cp /git/default-ssl.conf /etc/apache2/sites-available/default-ssl.conf
 cp /git/dir.conf /etc/apache2/mods-enabled/dir.conf
+cp /git/test.php /var/www/html
+cp /git/info.php /var/www/html
 chown -R www-data:www-data /etc/apache2
 chown -R www-data:www-data /var/www/html
+chmod 644 /var/www/html/info.php
+chmod 644 /var/www/html/test.php
 a2ensite default-ssl.conf
 service apache2 restart
