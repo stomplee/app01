@@ -9,7 +9,7 @@
 3. Create a subnet called **bluecoveapp01subnetB**, assign it to **bluecoveapp01vpc**, set the availability zone to **us-east-1b** and set the IPv4 CIDR block to **10.0.2.0/24**.  Select the new subnet and under subnet actions select modify auto-assign ip settings and enable auto-assign public IP.
 4. Create an internet gateway called **bluecoveapp01igw** and attach it to **bluecoveapp01vpc**.
 5. Create a route table called **bluecoveapp01route** and associate it with the **bluecoveapp01vpc**, associate the subnets **bluecoveapp01subnetA** and **bluecoveapp01subnetB** to this new route table and add a new route to it of **0.0.0.0/0** target **bluecoveapp01igw**.
-6. Create a security group called **bluecoveapp01sg**, assign it to **bluecoveapp01vpc** and add inbound rules for **22 from MyIP**, **HTTP from Anywhere** and **HTTPS from Anywhere**.
+6. Create a security group called **bluecoveapp01sg**, assign it to **bluecoveapp01vpc** and add inbound rules for **SSH from MyIP**, **HTTP from Anywhere** and **HTTPS from Anywhere**.
 7. Once the **bluecoveapp01sg** security group has been created go back and add an additional inbound rule for **3306 MYSQL/Aurora** from the **bluecoveapp01sg** security group itself.
 8. Launch a new EC2 instance, choose **Ubuntu 16.04 LTS x64** as the AMI (ami-7c803d1c), choose **t2.micro**, set to use **bluecoveapp01vpc** as its' VPC, choose **bluecoveapp01subnetA** for a subnet and under Advanced Details enter the script below and assign a tag of **Name=bluecoveapp01server1** and associate with ssh key you wish to use:
 
@@ -21,10 +21,10 @@
   ```
 9. Repeat step 8 to create a second instance, except use the other subnet, **bluecoveapp01subnetB** and tag the new instance **Name=bluecoveapp01server2**
 10. Create a classic Load Balancer, name it **bluecoveapp01elb**, associate with **bluecoveapp01vpc** VPC
-11. Set the load balancer protocol to *HTTPS*, the load balancer port to **443**, the instance protocol to **HTTPS** and the instance port to **443**
+11. Set the load balancer protocol to **HTTPS**, the load balancer port to **443**, the instance protocol to **HTTPS** and the instance port to **443**
 12. Associate the new load balancer with **bluecoveapp01subnetA** and **bluecoveapp01subnetB**
-12. Choose the **bluecoveapp01sg** security group
-13. For the SSL certificate section choose to upload a new certificate and upload a new SSL cert with the following settings and naming the certficate **bluecoveapp01cert**:
+13. Choose the **bluecoveapp01sg** security group
+14. For the SSL certificate section choose to upload a new certificate and upload a new SSL cert with the following settings and naming the certficate **bluecoveapp01cert**:
 
   ```
   -----BEGIN PRIVATE KEY-----
@@ -80,7 +80,7 @@
   oQ==
   -----END CERTIFICATE-----
   ```
-14. Set the health check to use **HTTPS** as a ping protocol with a ping port of **443** and use the default ping path.  Set the response timeout to **5s**, the interval to **10s** and lower the healthy threshold to **2**
-15. Associate the ELB with both EC2 instances created previously, tag the ELB as ***Name=bluecoveapp01elb***
-16. At this point you need to wait a while for the ELB to figure out that the instances behind it are healthy, and also some time for the DNS record for the ELB to propogate.  I've had it take up to 10 minutes, but it does work eventually.
-17. You should now be able to browse to **https://aws_elb_dns_name/test.php** and should see a result of **"Default database is testdb"** if everything is working correctly.  I have verified that the ELB works correctly, but you can see for yourself by tailing  /var/log/apache2/access.log on the two instances
+15. Set the health check to use **HTTPS** as a ping protocol with a ping port of **443** and use the default ping path.  Set the response timeout to **5s**, the interval to **10s** and lower the healthy threshold to **2**
+16. Associate the ELB with both EC2 instances created previously, tag the ELB as ***Name=bluecoveapp01elb***
+17. At this point you need to wait a while for the ELB to figure out that the instances behind it are healthy, and also some time for the DNS record for the ELB to propogate.  I've had it take up to 10 minutes, but it does work eventually.
+18. You should now be able to browse to **https://aws_elb_dns_name/test.php** and should see a result of **"Default database is testdb"** if everything is working correctly.  I have verified that the ELB works correctly, but you can see for yourself by tailing  /var/log/apache2/access.log on the two instances
