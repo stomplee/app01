@@ -4,21 +4,21 @@
 
 *As it currently stands this configuration is woefully insecure and uses some very bad practices such as hardcoded passwords and storing private keys inside of github, but it tested to work and meets the requirements of the test as was given to me.*
 
-1. Create a VPC in the **us-east** region, call it **bluecoveapp01vpc**, set the CIDR block to **10.0.0.0/16**.
+1. Create a VPC in the **us-east-1** region, call it **bluecoveapp01vpc**, set the CIDR block to **10.0.0.0/16**.
 2. Create a subnet called **bluecoveapp01subnetA**, assign it to **bluecoveapp01vpc**, set the availability zone to **us-east-1a** and set the IPv4 CIDR block to **10.0.1.0/24**.  Select the new subnet and under subnet actions select modify auto-assign ip settings and enable auto-assign public IP.
 3. Create a subnet called **bluecoveapp01subnetB**, assign it to **bluecoveapp01vpc**, set the availability zone to **us-east-1b** and set the IPv4 CIDR block to **10.0.2.0/24**.  Select the new subnet and under subnet actions select modify auto-assign ip settings and enable auto-assign public IP.
-4. Create an internet gateway called **bluecoveapp01igw** and attach it to **bluecoveapp01vpc"**
-5. Create a route table called **bluecoveapp01route** and associate it with the **bluecoveapp01vpc**, associate the subnets **bluecoveapp01subnetA** and **bluecoveapp01subnetB** to this new route table and add a new route to it of 0.0.0.0/0 target **bluecoveapp01igw**
-6. Create a security group called **bluecoveapp01sg** , assign it to **bluecoveapp01vpc** and add inbound rules for 22 from MyIP, HTTP from anywhere and HTTPS from anywhere
-7. Once the **bluecoveapp01sg** security group has been created go back and add an additional inbound rule for 3306 MYSQL/Aurora from the **bluecoveapp01sg** security group itself
-8. Launch a new EC2 instance, choose **Ubuntu 16.04 LTS x64** as the AMI (ami-7c803d1c), choose **t2.micro**, set to use **bluecoveapp01vpc** as its' VPC, choose **bluecoveapp01subnetA** for a subnet and under Advanced Details enter the script below and assign a tag of Name=bluecoveapp01server1 and associate with ssh key you wish to use
-'''
+4. Create an internet gateway called **bluecoveapp01igw** and attach it to **bluecoveapp01vpc**
+5. Create a route table called **bluecoveapp01route** and associate it with the **bluecoveapp01vpc**, associate the subnets **bluecoveapp01subnetA** and **bluecoveapp01subnetB** to this new route table and add a new route to it of **0.0.0.0/0** target **bluecoveapp01igw**
+6. Create a security group called **bluecoveapp01sg** , assign it to **bluecoveapp01vpc** and add inbound rules for **22 from MyIP**, **HTTP from Anywhere** and **HTTPS from Anywhere**
+7. Once the **bluecoveapp01sg** security group has been created go back and add an additional inbound rule for **3306 MYSQL/Aurora** from the **bluecoveapp01sg** security group itself
+8. Launch a new EC2 instance, choose **Ubuntu 16.04 LTS x64** as the AMI (ami-7c803d1c), choose **t2.micro**, set to use **bluecoveapp01vpc** as its' VPC, choose **bluecoveapp01subnetA** for a subnet and under Advanced Details enter the script below and assign a tag of **Name=bluecoveapp01server1** and associate with ssh key you wish to use
+```
 #!/bin/bash
 mkdir -p /git
 git clone https://github.com/stomplee/app01 /git
 sh /git/install.sh
-'''
-9. Repeat step 8 except use the other subnet, **bluecoveapp01subnetB**, everything else remains the same
+```
+9. Repeat step 8 to create a second instance, except use the other subnet, **bluecoveapp01subnetB** and tag the new instance **Name=bluecoveapp01server2**
 10. Create a classic Load Balancer, name it **bluecoveapp01elb**, associate with **bluecoveapp01vpc** VPC
 11. Set the load balancer protocol to *HTTPS*, the load balancer port to **443**, the instance protocol to **HTTPS** and the instance port to **443**
 12. Associate the new load balancer with **bluecoveapp01subnetA** and **bluecoveapp01subnetB**
